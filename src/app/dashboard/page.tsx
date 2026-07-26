@@ -1,4 +1,9 @@
+"use client";
+
+import { useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/auth.store";
 import {
   Card,
   CardContent,
@@ -8,6 +13,21 @@ import {
 } from "@/components/ui/card";
 
 export default function DashboardPage() {
+  const router = useRouter();
+  const role = useAuthStore((s) => s.user?.role);
+
+  useEffect(() => {
+    // Clients have a dedicated read-only portal — send them straight there
+    // instead of the PM/INTERNAL operational dashboard.
+    if (role === "CLIENT") {
+      router.replace("/dashboard/client");
+    }
+  }, [role, router]);
+
+  if (role === "CLIENT") {
+    return null;
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div>
