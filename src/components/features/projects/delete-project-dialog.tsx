@@ -1,0 +1,56 @@
+"use client";
+
+import { useDeleteProject } from "@/hooks/use-projects";
+import type { Project } from "@/types/project.types";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
+
+interface DeleteProjectDialogProps {
+  project: Project | null;
+  onOpenChange: (open: boolean) => void;
+}
+
+export function DeleteProjectDialog({
+  project,
+  onOpenChange,
+}: DeleteProjectDialogProps) {
+  const deleteProject = useDeleteProject();
+
+  const handleConfirm = () => {
+    if (!project) return;
+    deleteProject.mutate(project.id, { onSuccess: () => onOpenChange(false) });
+  };
+
+  return (
+    <AlertDialog open={!!project} onOpenChange={onOpenChange}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Delete project</AlertDialogTitle>
+          <AlertDialogDescription>
+            Are you sure you want to delete &ldquo;{project?.name}&rdquo;? This
+            action cannot be undone.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={deleteProject.isPending}>
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            onClick={handleConfirm}
+            disabled={deleteProject.isPending}
+          >
+            {deleteProject.isPending ? "Deleting…" : "Delete"}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
