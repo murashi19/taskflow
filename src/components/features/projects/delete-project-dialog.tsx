@@ -16,17 +16,25 @@ import {
 interface DeleteProjectDialogProps {
   project: Project | null;
   onOpenChange: (open: boolean) => void;
+  /** Called only after a successful delete — use to navigate away, etc. */
+  onDeleted?: () => void;
 }
 
 export function DeleteProjectDialog({
   project,
   onOpenChange,
+  onDeleted,
 }: DeleteProjectDialogProps) {
   const deleteProject = useDeleteProject();
 
   const handleConfirm = () => {
     if (!project) return;
-    deleteProject.mutate(project.id, { onSuccess: () => onOpenChange(false) });
+    deleteProject.mutate(project.id, {
+      onSuccess: () => {
+        onOpenChange(false);
+        onDeleted?.();
+      },
+    });
   };
 
   return (

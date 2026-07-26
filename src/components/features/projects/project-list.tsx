@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useProjects } from "@/hooks/use-projects";
 import { useDebounce } from "@/hooks/use-debounce";
+import { useAuthStore } from "@/store/auth.store";
+import { canManageProjects } from "@/lib/permissions";
 import { formatDate } from "@/lib/format";
 import { getErrorMessage } from "@/lib/error";
 import type { Project } from "@/types/project.types";
@@ -11,10 +14,10 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { CreateProjectDialog } from "@/components/features/projects/create-project-dialog";
 import { EditProjectDialog } from "@/components/features/projects/edit-project-dialog";
 import { DeleteProjectDialog } from "@/components/features/projects/delete-project-dialog";
-import { ProjectSearchInput } from "@/components/features/projects/project-search-input";
-import { PaginationControls } from "@/components/features/projects/pagination-controls";
+import { SearchInput } from "@/components/ui/search-input";
+import { PaginationControls } from "@/components/ui/pagination-controls";
 import { ProjectRowActions } from "@/components/features/projects/project-row-actions";
-import { ProjectTableSkeleton } from "@/components/features/projects/project-table-skeleton";
+import { TableSkeleton } from "@/components/ui/table-skeleton";
 
 const ROWS_PER_PAGE = 10;
 
@@ -23,6 +26,9 @@ export function ProjectList() {
   const [searchInput, setSearchInput] = useState("");
   const [editTarget, setEditTarget] = useState<Project | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Project | null>(null);
+
+  const role = useAuthStore((s) => s.user?.role);
+  const canManage = canManageProjects(role);
 
   const search = useDebounce(searchInput);
 
@@ -40,13 +46,17 @@ export function ProjectList() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-        <ProjectSearchInput value={searchInput} onChange={handleSearchChange} />
-        <CreateProjectDialog />
+        <SearchInput
+          value={searchInput}
+          onChange={handleSearchChange}
+          placeholder="Search projects…"
+        />
+        {canManage && <CreateProjectDialog />}
       </div>
 
       <Card className="overflow-hidden">
         {isLoading ? (
-          <ProjectTableSkeleton />
+          <TableSkeleton />
         ) : isError ? (
           <div className="p-6 text-center text-sm text-red-600">
             {getErrorMessage(error)}
@@ -57,7 +67,9 @@ export function ProjectList() {
             description={
               search
                 ? "Try a different search term."
-                : "Create your first project to get started."
+                : canManage
+                  ? "Create your first project to get started."
+                  : "You don't have access to any projects yet."
             }
           />
         ) : (
@@ -67,14 +79,19 @@ export function ProjectList() {
                 <th className="px-6 py-3 font-medium">Name</th>
                 <th className="px-6 py-3 font-medium">Description</th>
                 <th className="px-6 py-3 font-medium">Created</th>
-                <th className="px-6 py-3 font-medium" />
+                {canManage && <th className="px-6 py-3 font-medium" />}
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200">
               {data.map((project) => (
                 <tr key={project.id} className="hover:bg-slate-50">
                   <td className="px-6 py-4 font-medium text-slate-900">
-                    {project.name}
+                    <Link
+                      href={`/dashboard/projects/${project.id}`}
+                      className="hover:text-blue-600 hover:underline"
+                    >
+                      {project.name}
+                    </Link>
                   </td>
                   <td className="max-w-xs truncate px-6 py-4 text-slate-500">
                     {project.description || "—"}
@@ -82,13 +99,15 @@ export function ProjectList() {
                   <td className="px-6 py-4 text-slate-500">
                     {formatDate(project.createdAt)}
                   </td>
-                  <td className="px-6 py-4">
-                    <ProjectRowActions
-                      project={project}
-                      onEdit={setEditTarget}
-                      onDelete={setDeleteTarget}
-                    />
-                  </td>
+                  {canManage && (
+                    <td className="px-6 py-4">
+                      <ProjectRowActions
+                        project={project}
+                        onEdit={setEditTarget}
+                        onDelete={setDeleteTarget}
+                      />
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
@@ -104,14 +123,18 @@ export function ProjectList() {
         />
       )}
 
-      <EditProjectDialog
-        project={editTarget}
-        onOpenChange={(open) => !open && setEditTarget(null)}
-      />
-      <DeleteProjectDialog
-        project={deleteTarget}
-        onOpenChange={(open) => !open && setDeleteTarget(null)}
-      />
+      {canManage && (
+        <>
+          <EditProjectDialog
+            project={editTarget}
+            onOpenChange={(open) => !open && setEditTarget(null)}
+          />
+          <DeleteProjectDialog
+            project={deleteTarget}
+            onOpenChange={(open) => !open && setDeleteTarget(null)}
+          />
+        </>
+      )}
     </div>
   );
 }
