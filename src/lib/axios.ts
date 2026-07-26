@@ -4,7 +4,7 @@ import { ENDPOINTS } from "@/constants/endpoints";
 import type { ApiSuccess } from "@/types/api.types";
 import type { RefreshResponseData } from "@/types/auth.types";
 
-const API_BASE_URL =
+export const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
 
 export const api = axios.create({
