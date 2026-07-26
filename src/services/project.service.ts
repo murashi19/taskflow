@@ -7,6 +7,7 @@ import type {
   ProjectListParams,
   UpdateProjectPayload,
 } from "@/types/project.types";
+import type { ProjectMember } from "@/types/project-member.types";
 
 export async function getProjects(params: ProjectListParams) {
   const query: Record<string, string | number> = {
@@ -57,4 +58,25 @@ export async function updateProject(id: string, payload: UpdateProjectPayload) {
 
 export async function deleteProject(id: string) {
   await api.delete(ENDPOINTS.projects.byId(id));
+}
+
+export async function getProjectMembers(projectId: string) {
+  const { data } = await api.get<ApiSuccess<ProjectMember[]>>(
+    ENDPOINTS.projects.members(projectId),
+  );
+  return data.data;
+}
+
+export async function addProjectMember(projectId: string, userId: string) {
+  const { data } = await api.post<ApiSuccess<ProjectMember>>(
+    ENDPOINTS.projects.members(projectId),
+    {
+      userId,
+    },
+  );
+  return data.data;
+}
+
+export async function removeProjectMember(projectId: string, userId: string) {
+  await api.delete(ENDPOINTS.projects.removeMember(projectId, userId));
 }
