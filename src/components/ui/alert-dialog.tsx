@@ -1,9 +1,9 @@
 "use client";
 
-import * as React from "react";
-import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
-import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
+import type * as React from "react";
 
 const AlertDialog = AlertDialogPrimitive.Root;
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
@@ -29,13 +29,8 @@ function AlertDialogContent({
   );
 }
 
-function AlertDialogHeader({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div className={cn("mb-4 flex flex-col gap-1", className)} {...props} />
-  );
+function AlertDialogHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("mb-4 flex flex-col gap-1", className)} {...props} />;
 }
 
 function AlertDialogTitle({
@@ -62,13 +57,8 @@ function AlertDialogDescription({
   );
 }
 
-function AlertDialogFooter({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div className={cn("mt-6 flex justify-end gap-3", className)} {...props} />
-  );
+function AlertDialogFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("mt-6 flex justify-end gap-3", className)} {...props} />;
 }
 
 function AlertDialogCancel({

@@ -1,12 +1,12 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { QUERY_KEYS } from "@/constants/query-keys";
+import { getErrorMessage } from "@/lib/error";
 import {
   addProjectMember,
   getProjectMembers,
   removeProjectMember,
 } from "@/services/project.service";
-import { QUERY_KEYS } from "@/constants/query-keys";
-import { getErrorMessage } from "@/lib/error";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export function useProjectMembers(projectId: string) {
   return useQuery({

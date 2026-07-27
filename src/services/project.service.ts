@@ -1,13 +1,13 @@
-import { api } from "@/lib/axios";
 import { ENDPOINTS } from "@/constants/endpoints";
+import { api } from "@/lib/axios";
 import type { ApiSuccess } from "@/types/api.types";
+import type { ProjectMember } from "@/types/project-member.types";
 import type {
   CreateProjectPayload,
   Project,
   ProjectListParams,
   UpdateProjectPayload,
 } from "@/types/project.types";
-import type { ProjectMember } from "@/types/project-member.types";
 
 export async function getProjects(params: ProjectListParams) {
   const query: Record<string, string | number> = {
@@ -23,36 +23,25 @@ export async function getProjects(params: ProjectListParams) {
     query.searchFilters = JSON.stringify({ name: params.search.trim() });
   }
 
-  const { data } = await api.get<ApiSuccess<Project[]>>(
-    ENDPOINTS.projects.list,
-    {
-      params: query,
-    },
-  );
+  const { data } = await api.get<ApiSuccess<Project[]>>(ENDPOINTS.projects.list, {
+    params: query,
+  });
 
   return data.data;
 }
 
 export async function getProjectById(id: string) {
-  const { data } = await api.get<ApiSuccess<Project>>(
-    ENDPOINTS.projects.byId(id),
-  );
+  const { data } = await api.get<ApiSuccess<Project>>(ENDPOINTS.projects.byId(id));
   return data.data;
 }
 
 export async function createProject(payload: CreateProjectPayload) {
-  const { data } = await api.post<ApiSuccess<Project>>(
-    ENDPOINTS.projects.create,
-    payload,
-  );
+  const { data } = await api.post<ApiSuccess<Project>>(ENDPOINTS.projects.create, payload);
   return data.data;
 }
 
 export async function updateProject(id: string, payload: UpdateProjectPayload) {
-  const { data } = await api.patch<ApiSuccess<Project>>(
-    ENDPOINTS.projects.byId(id),
-    payload,
-  );
+  const { data } = await api.patch<ApiSuccess<Project>>(ENDPOINTS.projects.byId(id), payload);
   return data.data;
 }
 

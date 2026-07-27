@@ -16,8 +16,7 @@ export const ENDPOINTS = {
     create: "/projects",
     byId: (id: string) => `/projects/${id}`,
     members: (id: string) => `/projects/${id}/members`,
-    removeMember: (id: string, userId: string) =>
-      `/projects/${id}/members/${userId}`,
+    removeMember: (id: string, userId: string) => `/projects/${id}/members/${userId}`,
   },
   tasks: {
     list: "/tasks",
@@ -28,8 +27,7 @@ export const ENDPOINTS = {
     dependencies: (id: string) => `/tasks/${id}/dependencies`,
     auditLogs: (id: string) => `/tasks/${id}/audit-logs`,
     attachments: (id: string) => `/tasks/${id}/attachments`,
-    deleteAttachment: (attachmentId: string) =>
-      `/tasks/attachments/${attachmentId}`,
+    deleteAttachment: (attachmentId: string) => `/tasks/attachments/${attachmentId}`,
   },
   client: {
     projects: "/client/projects",

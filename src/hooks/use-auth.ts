@@ -1,11 +1,11 @@
+import { QUERY_KEYS } from "@/constants/query-keys";
+import { getErrorMessage } from "@/lib/error";
+import { getMe, loginUser, logoutUser, registerUser } from "@/services/auth.service";
+import { useAuthStore } from "@/store/auth.store";
+import type { LoginPayload, RegisterPayload } from "@/types/auth.types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { getMe, loginUser, logoutUser, registerUser } from "@/services/auth.service";
-import { useAuthStore } from "@/store/auth.store";
-import { QUERY_KEYS } from "@/constants/query-keys";
-import { getErrorMessage } from "@/lib/error";
-import type { LoginPayload, RegisterPayload } from "@/types/auth.types";
 
 export function useLogin() {
   const router = useRouter();

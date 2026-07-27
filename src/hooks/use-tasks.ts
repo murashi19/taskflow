@@ -1,10 +1,5 @@
-import {
-  keepPreviousData,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { toast } from "sonner";
+import { QUERY_KEYS } from "@/constants/query-keys";
+import { getErrorMessage } from "@/lib/error";
 import {
   assignTask,
   changeTaskStatus,
@@ -14,8 +9,6 @@ import {
   getTasks,
   updateTask,
 } from "@/services/task.service";
-import { QUERY_KEYS } from "@/constants/query-keys";
-import { getErrorMessage } from "@/lib/error";
 import type {
   AssignTaskPayload,
   ChangeTaskStatusPayload,
@@ -23,6 +16,8 @@ import type {
   TaskListParams,
   UpdateTaskPayload,
 } from "@/types/task.types";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export function useTasks(params: TaskListParams) {
   const query = useQuery({
@@ -104,8 +99,7 @@ export function useChangeTaskStatus(id: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (payload: ChangeTaskStatusPayload) =>
-      changeTaskStatus(id, payload),
+    mutationFn: (payload: ChangeTaskStatusPayload) => changeTaskStatus(id, payload),
     onSuccess: () => {
       toast.success("Task status updated");
       queryClient.invalidateQueries({ queryKey: ["tasks", "list"] });

@@ -1,10 +1,16 @@
 "use client";
 
-import { useAuthStore } from "@/store/auth.store";
-import { useChangeTaskStatus } from "@/hooks/use-tasks";
-import type { Task, TaskStatus } from "@/types/task.types";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { StatusBadge } from "@/components/features/tasks/status-badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useChangeTaskStatus } from "@/hooks/use-tasks";
+import { useAuthStore } from "@/store/auth.store";
+import type { Task, TaskStatus } from "@/types/task.types";
 
 // Mirrors the state machine in backend/src/modules/task/task.service.ts
 // (isValidTransition) — DONE is terminal, and each step only allows the

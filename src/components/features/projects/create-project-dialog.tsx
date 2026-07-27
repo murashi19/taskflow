@@ -1,19 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { Plus } from "lucide-react";
-import { useCreateProject } from "@/hooks/use-projects";
-import type { ProjectFormValues } from "@/schemas/project.schema";
+import { ProjectForm } from "@/components/features/projects/project-form";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ProjectForm } from "@/components/features/projects/project-form";
+import { useCreateProject } from "@/hooks/use-projects";
+import type { ProjectFormValues } from "@/schemas/project.schema";
+import { Plus } from "lucide-react";
+import { useState } from "react";
 
 export function CreateProjectDialog() {
   const [open, setOpen] = useState(false);
@@ -37,9 +37,7 @@ export function CreateProjectDialog() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>New project</DialogTitle>
-          <DialogDescription>
-            Create a new project for your team.
-          </DialogDescription>
+          <DialogDescription>Create a new project for your team.</DialogDescription>
         </DialogHeader>
         <ProjectForm
           isSubmitting={createProject.isPending}

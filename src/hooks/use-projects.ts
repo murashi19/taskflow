@@ -1,10 +1,5 @@
-import {
-  keepPreviousData,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { toast } from "sonner";
+import { QUERY_KEYS } from "@/constants/query-keys";
+import { getErrorMessage } from "@/lib/error";
 import {
   createProject,
   deleteProject,
@@ -12,13 +7,13 @@ import {
   getProjects,
   updateProject,
 } from "@/services/project.service";
-import { QUERY_KEYS } from "@/constants/query-keys";
-import { getErrorMessage } from "@/lib/error";
 import type {
   CreateProjectPayload,
   ProjectListParams,
   UpdateProjectPayload,
 } from "@/types/project.types";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export function useProjects(params: ProjectListParams) {
   const query = useQuery({

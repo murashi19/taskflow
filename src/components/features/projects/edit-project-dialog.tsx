@@ -1,26 +1,23 @@
 "use client";
 
-import { useUpdateProject } from "@/hooks/use-projects";
-import type { ProjectFormValues } from "@/schemas/project.schema";
-import type { Project } from "@/types/project.types";
+import { ProjectForm } from "@/components/features/projects/project-form";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
-import { ProjectForm } from "@/components/features/projects/project-form";
+import { useUpdateProject } from "@/hooks/use-projects";
+import type { ProjectFormValues } from "@/schemas/project.schema";
+import type { Project } from "@/types/project.types";
 
 interface EditProjectDialogProps {
   project: Project | null;
   onOpenChange: (open: boolean) => void;
 }
 
-export function EditProjectDialog({
-  project,
-  onOpenChange,
-}: EditProjectDialogProps) {
+export function EditProjectDialog({ project, onOpenChange }: EditProjectDialogProps) {
   const updateProject = useUpdateProject(project?.id ?? "");
 
   const handleSubmit = (values: ProjectFormValues) => {
@@ -35,9 +32,7 @@ export function EditProjectDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit project</DialogTitle>
-          <DialogDescription>
-            Update this project&apos;s details.
-          </DialogDescription>
+          <DialogDescription>Update this project&apos;s details.</DialogDescription>
         </DialogHeader>
         {project && (
           <ProjectForm

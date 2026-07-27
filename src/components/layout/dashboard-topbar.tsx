@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { useAuthStore } from "@/store/auth.store";
-import { useLogout } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
+import { useLogout } from "@/hooks/use-auth";
+import { useAuthStore } from "@/store/auth.store";
+import Link from "next/link";
 
 export function DashboardTopbar() {
   const user = useAuthStore((s) => s.user);
@@ -19,17 +19,11 @@ export function DashboardTopbar() {
           TaskFlow
         </Link>
         {user?.role === "CLIENT" ? (
-          <Link
-            href="/dashboard/client"
-            className="text-sm text-slate-600 hover:text-slate-900"
-          >
+          <Link href="/dashboard/client" className="text-sm text-slate-600 hover:text-slate-900">
             My Projects
           </Link>
         ) : (
-          <Link
-            href="/dashboard/projects"
-            className="text-sm text-slate-600 hover:text-slate-900"
-          >
+          <Link href="/dashboard/projects" className="text-sm text-slate-600 hover:text-slate-900">
             Projects
           </Link>
         )}
@@ -38,8 +32,7 @@ export function DashboardTopbar() {
       <div className="flex items-center gap-4">
         {user && (
           <span className="text-sm text-slate-600">
-            {user.fullName}{" "}
-            <span className="text-slate-400">· {user.role}</span>
+            {user.fullName} <span className="text-slate-400">· {user.role}</span>
           </span>
         )}
         <Button

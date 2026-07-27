@@ -1,9 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import {
-  getClientProjectById,
-  getClientProjects,
-} from "@/services/client.service";
 import { QUERY_KEYS } from "@/constants/query-keys";
+import { getClientProjectById, getClientProjects } from "@/services/client.service";
+import { useQuery } from "@tanstack/react-query";
 
 export function useClientProjects() {
   return useQuery({

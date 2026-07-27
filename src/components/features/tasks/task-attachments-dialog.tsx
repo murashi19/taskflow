@@ -1,20 +1,24 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { Paperclip, Trash2, Upload } from "lucide-react";
-import { useDeleteTaskAttachment, useTaskAttachments, useUploadTaskAttachment } from "@/hooks/use-task-attachments";
-import { ALLOWED_ATTACHMENT_TYPES, MAX_ATTACHMENT_SIZE_BYTES } from "@/types/attachment.types";
-import { API_BASE_URL } from "@/lib/axios";
-import { formatDate } from "@/lib/format";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  useDeleteTaskAttachment,
+  useTaskAttachments,
+  useUploadTaskAttachment,
+} from "@/hooks/use-task-attachments";
+import { API_BASE_URL } from "@/lib/axios";
+import { formatDate } from "@/lib/format";
+import { ALLOWED_ATTACHMENT_TYPES, MAX_ATTACHMENT_SIZE_BYTES } from "@/types/attachment.types";
+import { Paperclip, Trash2, Upload } from "lucide-react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 interface TaskAttachmentsDialogProps {
@@ -29,7 +33,11 @@ function formatFileSize(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-export function TaskAttachmentsDialog({ taskId, taskTitle, onOpenChange }: TaskAttachmentsDialogProps) {
+export function TaskAttachmentsDialog({
+  taskId,
+  taskTitle,
+  onOpenChange,
+}: TaskAttachmentsDialogProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
 
@@ -42,7 +50,9 @@ export function TaskAttachmentsDialog({ taskId, taskTitle, onOpenChange }: TaskA
 
     // Mirror backend validation client-side for immediate feedback — the
     // backend still enforces this itself regardless.
-    if (!ALLOWED_ATTACHMENT_TYPES.includes(file.type as (typeof ALLOWED_ATTACHMENT_TYPES)[number])) {
+    if (
+      !ALLOWED_ATTACHMENT_TYPES.includes(file.type as (typeof ALLOWED_ATTACHMENT_TYPES)[number])
+    ) {
       toast.error("Only PNG, JPEG, or PDF files are allowed.");
       return;
     }
@@ -126,7 +136,9 @@ export function TaskAttachmentsDialog({ taskId, taskTitle, onOpenChange }: TaskA
           <p className="text-sm text-slate-600">
             {upload.isPending ? "Uploading…" : "Click or drag a file here to upload"}
           </p>
-          <p className="text-xs text-slate-400">PNG, JPEG, or PDF · up to {formatFileSize(MAX_ATTACHMENT_SIZE_BYTES)}</p>
+          <p className="text-xs text-slate-400">
+            PNG, JPEG, or PDF · up to {formatFileSize(MAX_ATTACHMENT_SIZE_BYTES)}
+          </p>
         </button>
         <input
           ref={fileInputRef}

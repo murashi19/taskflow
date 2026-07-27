@@ -1,6 +1,6 @@
+import type { AuthUser } from "@/types/auth.types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { AuthUser } from "@/types/auth.types";
 
 interface AuthState {
   user: AuthUser | null;
@@ -25,13 +25,11 @@ export const useAuthStore = create<AuthState>()(
       refreshToken: null,
       isHydrated: false,
 
-      setSession: ({ user, accessToken, refreshToken }) =>
-        set({ user, accessToken, refreshToken }),
+      setSession: ({ user, accessToken, refreshToken }) => set({ user, accessToken, refreshToken }),
 
       setAccessToken: (accessToken) => set({ accessToken }),
 
-      clearSession: () =>
-        set({ user: null, accessToken: null, refreshToken: null }),
+      clearSession: () => set({ user: null, accessToken: null, refreshToken: null }),
 
       setHydrated: () => set({ isHydrated: true }),
     }),

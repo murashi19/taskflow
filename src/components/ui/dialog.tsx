@@ -1,9 +1,9 @@
 "use client";
 
-import * as React from "react";
+import { cn } from "@/lib/utils";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import type * as React from "react";
 
 const Dialog = DialogPrimitive.Root;
 const DialogTrigger = DialogPrimitive.Trigger;
@@ -46,19 +46,11 @@ function DialogContent({
   );
 }
 
-function DialogHeader({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div className={cn("mb-4 flex flex-col gap-1", className)} {...props} />
-  );
+function DialogHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("mb-4 flex flex-col gap-1", className)} {...props} />;
 }
 
-function DialogTitle({
-  className,
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Title>) {
+function DialogTitle({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Title>) {
   return (
     <DialogPrimitive.Title
       className={cn("text-lg font-semibold text-slate-900", className)}
@@ -72,20 +64,12 @@ function DialogDescription({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Description>) {
   return (
-    <DialogPrimitive.Description
-      className={cn("text-sm text-slate-500", className)}
-      {...props}
-    />
+    <DialogPrimitive.Description className={cn("text-sm text-slate-500", className)} {...props} />
   );
 }
 
-function DialogFooter({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div className={cn("mt-6 flex justify-end gap-3", className)} {...props} />
-  );
+function DialogFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("mt-6 flex justify-end gap-3", className)} {...props} />;
 }
 
 export {

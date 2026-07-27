@@ -1,17 +1,14 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  projectFormSchema,
-  type ProjectFormValues,
-} from "@/schemas/project.schema";
 import { Button } from "@/components/ui/button";
+import { DialogClose, DialogFooter } from "@/components/ui/dialog";
+import { FormError } from "@/components/ui/form-error";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { FormError } from "@/components/ui/form-error";
-import { DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { type ProjectFormValues, projectFormSchema } from "@/schemas/project.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 interface ProjectFormProps {
   defaultValues?: Partial<ProjectFormValues>;
@@ -39,11 +36,7 @@ export function ProjectForm({
   });
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4"
-      noValidate
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
       <div className="flex flex-col gap-2">
         <Label htmlFor="name">Project name</Label>
         <Input

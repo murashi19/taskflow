@@ -1,16 +1,16 @@
 "use client";
 
-import { useUpdateTask } from "@/hooks/use-tasks";
-import type { TaskFormValues } from "@/schemas/task.schema";
-import type { Task } from "@/types/task.types";
+import { TaskForm } from "@/components/features/tasks/task-form";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
-import { TaskForm } from "@/components/features/tasks/task-form";
+import { useUpdateTask } from "@/hooks/use-tasks";
+import type { TaskFormValues } from "@/schemas/task.schema";
+import type { Task } from "@/types/task.types";
 
 interface EditTaskDialogProps {
   task: Task | null;

@@ -1,16 +1,13 @@
 "use client";
 
-import { X } from "lucide-react";
-import {
-  useProjectMembers,
-  useRemoveProjectMember,
-} from "@/hooks/use-project-members";
-import { useAuthStore } from "@/store/auth.store";
-import { canManageProjectMembers } from "@/lib/permissions";
+import { AddMemberDialog } from "@/components/features/projects/add-member-dialog";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
-import { AddMemberDialog } from "@/components/features/projects/add-member-dialog";
+import { useProjectMembers, useRemoveProjectMember } from "@/hooks/use-project-members";
+import { canManageProjectMembers } from "@/lib/permissions";
+import { useAuthStore } from "@/store/auth.store";
+import { X } from "lucide-react";
 
 export function ProjectMembersPanel({ projectId }: { projectId: string }) {
   const { data: members, isLoading } = useProjectMembers(projectId);
@@ -42,9 +39,7 @@ export function ProjectMembersPanel({ projectId }: { projectId: string }) {
               className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2"
             >
               <div>
-                <p className="text-sm font-medium text-slate-900">
-                  {member.user.fullName}
-                </p>
+                <p className="text-sm font-medium text-slate-900">{member.user.fullName}</p>
                 <p className="text-xs text-slate-500">{member.user.email}</p>
               </div>
               {canManage && (

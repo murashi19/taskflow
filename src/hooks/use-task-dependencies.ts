@@ -1,11 +1,8 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import {
-  addTaskDependency,
-  getTaskDependencies,
-} from "@/services/task.service";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import { getErrorMessage } from "@/lib/error";
+import { addTaskDependency, getTaskDependencies } from "@/services/task.service";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export function useTaskDependencies(taskId: string) {
   return useQuery({
@@ -19,8 +16,7 @@ export function useAddTaskDependency(taskId: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (dependsOnTaskId: string) =>
-      addTaskDependency(taskId, dependsOnTaskId),
+    mutationFn: (dependsOnTaskId: string) => addTaskDependency(taskId, dependsOnTaskId),
     onSuccess: () => {
       toast.success("Dependency added");
       queryClient.invalidateQueries({

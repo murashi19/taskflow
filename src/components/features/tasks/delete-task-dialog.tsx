@@ -1,17 +1,17 @@
 "use client";
 
-import { useDeleteTask } from "@/hooks/use-tasks";
-import type { Task } from "@/types/task.types";
 import {
   AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useDeleteTask } from "@/hooks/use-tasks";
+import type { Task } from "@/types/task.types";
 
 interface DeleteTaskDialogProps {
   task: Task | null;

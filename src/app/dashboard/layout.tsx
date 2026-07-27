@@ -1,5 +1,5 @@
-import { ProtectedRoute } from "@/components/layout/protected-route";
 import { DashboardTopbar } from "@/components/layout/dashboard-topbar";
+import { ProtectedRoute } from "@/components/layout/protected-route";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (

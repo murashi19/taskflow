@@ -1,22 +1,28 @@
 "use client";
 
-import { useState } from "react";
-import { Link2 } from "lucide-react";
-import { useTasks } from "@/hooks/use-tasks";
-import { useAddTaskDependency, useTaskDependencies } from "@/hooks/use-task-dependencies";
-import type { Task } from "@/types/task.types";
+import { PriorityBadge } from "@/components/features/tasks/priority-badge";
+import { StatusBadge } from "@/components/features/tasks/status-badge";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { StatusBadge } from "@/components/features/tasks/status-badge";
-import { PriorityBadge } from "@/components/features/tasks/priority-badge";
+import { useAddTaskDependency, useTaskDependencies } from "@/hooks/use-task-dependencies";
+import { useTasks } from "@/hooks/use-tasks";
+import type { Task } from "@/types/task.types";
+import { Link2 } from "lucide-react";
+import { useState } from "react";
 
 const CANDIDATE_ROWS = 100;
 

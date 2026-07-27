@@ -1,24 +1,19 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { PriorityBadge } from "@/components/features/tasks/priority-badge";
+import { StatusBadge } from "@/components/features/tasks/status-badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { ProgressBar } from "@/components/ui/progress-bar";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useClientProject } from "@/hooks/use-client-projects";
 import { getErrorMessage } from "@/lib/error";
 import { formatDate } from "@/lib/format";
-import { Card, CardContent } from "@/components/ui/card";
-import { ProgressBar } from "@/components/ui/progress-bar";
-import { Skeleton } from "@/components/ui/skeleton";
-import { EmptyState } from "@/components/ui/empty-state";
-import { StatusBadge } from "@/components/features/tasks/status-badge";
-import { PriorityBadge } from "@/components/features/tasks/priority-badge";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export function ClientProjectDetail({ projectId }: { projectId: string }) {
-  const {
-    data: project,
-    isLoading,
-    isError,
-    error,
-  } = useClientProject(projectId);
+  const { data: project, isLoading, isError, error } = useClientProject(projectId);
 
   return (
     <div className="flex flex-col gap-6">
@@ -40,13 +35,9 @@ export function ClientProjectDetail({ projectId }: { projectId: string }) {
       ) : project ? (
         <>
           <div>
-            <h1 className="text-xl font-semibold text-slate-900">
-              {project.name}
-            </h1>
+            <h1 className="text-xl font-semibold text-slate-900">{project.name}</h1>
             {project.description && (
-              <p className="mt-1 text-sm text-slate-500">
-                {project.description}
-              </p>
+              <p className="mt-1 text-sm text-slate-500">{project.description}</p>
             )}
           </div>
 
@@ -56,9 +47,7 @@ export function ClientProjectDetail({ projectId }: { projectId: string }) {
                 <span className="text-slate-500">
                   {project.completedTask} of {project.totalTask} tasks done
                 </span>
-                <span className="font-medium text-slate-900">
-                  {project.progress}%
-                </span>
+                <span className="font-medium text-slate-900">{project.progress}%</span>
               </div>
               <ProgressBar value={project.progress} />
             </CardContent>
@@ -85,18 +74,14 @@ export function ClientProjectDetail({ projectId }: { projectId: string }) {
                   <tbody className="divide-y divide-slate-200">
                     {project.tasks.map((task) => (
                       <tr key={task.id}>
-                        <td className="px-6 py-4 font-medium text-slate-900">
-                          {task.title}
-                        </td>
+                        <td className="px-6 py-4 font-medium text-slate-900">{task.title}</td>
                         <td className="px-6 py-4">
                           <PriorityBadge priority={task.priority} />
                         </td>
                         <td className="px-6 py-4">
                           <StatusBadge status={task.status} />
                         </td>
-                        <td className="px-6 py-4 text-slate-500">
-                          {formatDate(task.updatedAt)}
-                        </td>
+                        <td className="px-6 py-4 text-slate-500">{formatDate(task.updatedAt)}</td>
                       </tr>
                     ))}
                   </tbody>

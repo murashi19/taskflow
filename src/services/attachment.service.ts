@@ -1,12 +1,10 @@
-import { api } from "@/lib/axios";
 import { ENDPOINTS } from "@/constants/endpoints";
+import { api } from "@/lib/axios";
 import type { ApiSuccess } from "@/types/api.types";
 import type { Attachment } from "@/types/attachment.types";
 
 export async function getTaskAttachments(taskId: string) {
-  const { data } = await api.get<ApiSuccess<Attachment[]>>(
-    ENDPOINTS.tasks.attachments(taskId),
-  );
+  const { data } = await api.get<ApiSuccess<Attachment[]>>(ENDPOINTS.tasks.attachments(taskId));
   return data.data;
 }
 

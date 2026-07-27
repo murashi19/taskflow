@@ -1,21 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { ArrowLeft, Pencil, Trash2 } from "lucide-react";
-import { useProject } from "@/hooks/use-projects";
-import { useAuthStore } from "@/store/auth.store";
-import { canManageProjects, canViewProjectMembers } from "@/lib/permissions";
-import { formatDate } from "@/lib/format";
-import { getErrorMessage } from "@/lib/error";
-import type { Project } from "@/types/project.types";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { EditProjectDialog } from "@/components/features/projects/edit-project-dialog";
 import { DeleteProjectDialog } from "@/components/features/projects/delete-project-dialog";
+import { EditProjectDialog } from "@/components/features/projects/edit-project-dialog";
 import { ProjectMembersPanel } from "@/components/features/projects/project-members-panel";
 import { TaskList } from "@/components/features/tasks/task-list";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useProject } from "@/hooks/use-projects";
+import { getErrorMessage } from "@/lib/error";
+import { formatDate } from "@/lib/format";
+import { canManageProjects, canViewProjectMembers } from "@/lib/permissions";
+import { useAuthStore } from "@/store/auth.store";
+import type { Project } from "@/types/project.types";
+import { ArrowLeft, Pencil, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function ProjectDetailView({ projectId }: { projectId: string }) {
   const router = useRouter();
@@ -48,33 +48,19 @@ export function ProjectDetailView({ projectId }: { projectId: string }) {
         <>
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h1 className="text-xl font-semibold text-slate-900">
-                {project.name}
-              </h1>
+              <h1 className="text-xl font-semibold text-slate-900">{project.name}</h1>
               {project.description && (
-                <p className="mt-1 text-sm text-slate-500">
-                  {project.description}
-                </p>
+                <p className="mt-1 text-sm text-slate-500">{project.description}</p>
               )}
-              <p className="mt-1 text-xs text-slate-400">
-                Created {formatDate(project.createdAt)}
-              </p>
+              <p className="mt-1 text-xs text-slate-400">Created {formatDate(project.createdAt)}</p>
             </div>
             {canManage && (
               <div className="flex shrink-0 gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setEditTarget(project)}
-                >
+                <Button variant="outline" size="sm" onClick={() => setEditTarget(project)}>
                   <Pencil className="h-4 w-4" />
                   Edit
                 </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setDeleteTarget(project)}
-                >
+                <Button variant="outline" size="sm" onClick={() => setDeleteTarget(project)}>
                   <Trash2 className="h-4 w-4 text-red-600" />
                   Delete
                 </Button>

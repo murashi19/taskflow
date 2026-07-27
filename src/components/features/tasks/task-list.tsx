@@ -1,26 +1,32 @@
 "use client";
 
-import { useState } from "react";
-import { useTasks } from "@/hooks/use-tasks";
-import { useDebounce } from "@/hooks/use-debounce";
-import { getErrorMessage } from "@/lib/error";
-import type { Task, TaskStatus } from "@/types/task.types";
-import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/ui/empty-state";
-import { SearchInput } from "@/components/ui/search-input";
-import { PaginationControls } from "@/components/ui/pagination-controls";
-import { TableSkeleton } from "@/components/ui/table-skeleton";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { PriorityBadge } from "@/components/features/tasks/priority-badge";
-import { TaskStatusSelect } from "@/components/features/tasks/task-status-select";
-import { CreateTaskDialog } from "@/components/features/tasks/create-task-dialog";
-import { EditTaskDialog } from "@/components/features/tasks/edit-task-dialog";
-import { DeleteTaskDialog } from "@/components/features/tasks/delete-task-dialog";
 import { AssignTaskDialog } from "@/components/features/tasks/assign-task-dialog";
-import { TaskDependenciesDialog } from "@/components/features/tasks/task-dependencies-dialog";
+import { CreateTaskDialog } from "@/components/features/tasks/create-task-dialog";
+import { DeleteTaskDialog } from "@/components/features/tasks/delete-task-dialog";
+import { EditTaskDialog } from "@/components/features/tasks/edit-task-dialog";
+import { PriorityBadge } from "@/components/features/tasks/priority-badge";
 import { TaskAttachmentsDialog } from "@/components/features/tasks/task-attachments-dialog";
 import { TaskAuditLogDialog } from "@/components/features/tasks/task-audit-log-dialog";
+import { TaskDependenciesDialog } from "@/components/features/tasks/task-dependencies-dialog";
 import { TaskRowActions } from "@/components/features/tasks/task-row-actions";
+import { TaskStatusSelect } from "@/components/features/tasks/task-status-select";
+import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { PaginationControls } from "@/components/ui/pagination-controls";
+import { SearchInput } from "@/components/ui/search-input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { TableSkeleton } from "@/components/ui/table-skeleton";
+import { useDebounce } from "@/hooks/use-debounce";
+import { useTasks } from "@/hooks/use-tasks";
+import { getErrorMessage } from "@/lib/error";
+import type { Task, TaskStatus } from "@/types/task.types";
+import { useState } from "react";
 
 const ROWS_PER_PAGE = 10;
 const ALL_STATUSES = "ALL";
@@ -60,7 +66,11 @@ export function TaskList({ projectId }: { projectId: string }) {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div className="flex flex-1 gap-3">
-          <SearchInput value={searchInput} onChange={handleSearchChange} placeholder="Search tasks…" />
+          <SearchInput
+            value={searchInput}
+            onChange={handleSearchChange}
+            placeholder="Search tasks…"
+          />
           <Select value={statusFilter} onValueChange={handleStatusFilterChange}>
             <SelectTrigger className="w-40">
               <SelectValue />
@@ -84,7 +94,11 @@ export function TaskList({ projectId }: { projectId: string }) {
           <div className="p-6 text-center text-sm text-red-600">{getErrorMessage(error)}</div>
         ) : !data || data.length === 0 ? (
           <EmptyState
-            title={search || statusFilter !== ALL_STATUSES ? "No tasks match your filters" : "No tasks yet"}
+            title={
+              search || statusFilter !== ALL_STATUSES
+                ? "No tasks match your filters"
+                : "No tasks yet"
+            }
             description={
               search || statusFilter !== ALL_STATUSES
                 ? "Try a different search term or status."
@@ -107,7 +121,9 @@ export function TaskList({ projectId }: { projectId: string }) {
                   <td className="px-6 py-4 font-medium text-slate-900">
                     {task.title}
                     {task.clientVisible && (
-                      <span className="ml-2 text-xs font-normal text-slate-400">(client visible)</span>
+                      <span className="ml-2 text-xs font-normal text-slate-400">
+                        (client visible)
+                      </span>
                     )}
                   </td>
                   <td className="px-6 py-4">
@@ -139,7 +155,10 @@ export function TaskList({ projectId }: { projectId: string }) {
       )}
 
       <EditTaskDialog task={editTarget} onOpenChange={(open) => !open && setEditTarget(null)} />
-      <AssignTaskDialog task={assignTarget} onOpenChange={(open) => !open && setAssignTarget(null)} />
+      <AssignTaskDialog
+        task={assignTarget}
+        onOpenChange={(open) => !open && setAssignTarget(null)}
+      />
       <TaskDependenciesDialog
         task={dependenciesTarget}
         onOpenChange={(open) => !open && setDependenciesTarget(null)}
@@ -154,7 +173,10 @@ export function TaskList({ projectId }: { projectId: string }) {
         taskTitle={auditLogTarget?.title}
         onOpenChange={(open) => !open && setAuditLogTarget(null)}
       />
-      <DeleteTaskDialog task={deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)} />
+      <DeleteTaskDialog
+        task={deleteTarget}
+        onOpenChange={(open) => !open && setDeleteTarget(null)}
+      />
     </div>
   );
 }

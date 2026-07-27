@@ -1,23 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import { Plus, UserPlus } from "lucide-react";
-import { useDebounce } from "@/hooks/use-debounce";
-import { useUsers } from "@/hooks/use-users";
-import {
-  useAddProjectMember,
-  useProjectMembers,
-} from "@/hooks/use-project-members";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { SearchInput } from "@/components/ui/search-input";
+import { useDebounce } from "@/hooks/use-debounce";
+import { useAddProjectMember, useProjectMembers } from "@/hooks/use-project-members";
+import { useUsers } from "@/hooks/use-users";
+import { Plus, UserPlus } from "lucide-react";
+import { useState } from "react";
 
 export function AddMemberDialog({ projectId }: { projectId: string }) {
   const [open, setOpen] = useState(false);
@@ -42,9 +39,7 @@ export function AddMemberDialog({ projectId }: { projectId: string }) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add project member</DialogTitle>
-          <DialogDescription>
-            Search for a user to add to this project.
-          </DialogDescription>
+          <DialogDescription>Search for a user to add to this project.</DialogDescription>
         </DialogHeader>
 
         <SearchInput
@@ -65,9 +60,7 @@ export function AddMemberDialog({ projectId }: { projectId: string }) {
                 className="flex items-center justify-between rounded-lg px-2 py-2 hover:bg-slate-50"
               >
                 <div>
-                  <p className="text-sm font-medium text-slate-900">
-                    {user.fullName}
-                  </p>
+                  <p className="text-sm font-medium text-slate-900">{user.fullName}</p>
                   <p className="text-xs text-slate-500">{user.email}</p>
                 </div>
                 <Button

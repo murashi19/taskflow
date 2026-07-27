@@ -1,6 +1,7 @@
-import { api } from "@/lib/axios";
 import { ENDPOINTS } from "@/constants/endpoints";
+import { api } from "@/lib/axios";
 import type { ApiSuccess } from "@/types/api.types";
+import type { AuditLog } from "@/types/audit-log.types";
 import type {
   AssignTaskPayload,
   ChangeTaskStatusPayload,
@@ -11,7 +12,6 @@ import type {
   TaskWithRelations,
   UpdateTaskPayload,
 } from "@/types/task.types";
-import type { AuditLog } from "@/types/audit-log.types";
 
 export async function getTasks(params: TaskListParams) {
   // `projectId` and `status` are exact matches -> `filters`.
@@ -65,14 +65,19 @@ export async function changeTaskStatus(id: string, payload: ChangeTaskStatusPayl
 }
 
 export async function getTaskDependencies(taskId: string) {
-  const { data } = await api.get<ApiSuccess<TaskDependency[]>>(ENDPOINTS.tasks.dependencies(taskId));
+  const { data } = await api.get<ApiSuccess<TaskDependency[]>>(
+    ENDPOINTS.tasks.dependencies(taskId),
+  );
   return data.data;
 }
 
 export async function addTaskDependency(taskId: string, dependsOnTaskId: string) {
-  const { data } = await api.post<ApiSuccess<TaskDependency>>(ENDPOINTS.tasks.dependencies(taskId), {
-    dependsOnTaskId,
-  });
+  const { data } = await api.post<ApiSuccess<TaskDependency>>(
+    ENDPOINTS.tasks.dependencies(taskId),
+    {
+      dependsOnTaskId,
+    },
+  );
   return data.data;
 }
 

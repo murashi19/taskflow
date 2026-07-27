@@ -10,9 +10,5 @@ export interface Attachment {
 }
 
 // Enforced by backend/src/modules/task/attachment.service.ts
-export const ALLOWED_ATTACHMENT_TYPES = [
-  "image/png",
-  "image/jpeg",
-  "application/pdf",
-] as const;
+export const ALLOWED_ATTACHMENT_TYPES = ["image/png", "image/jpeg", "application/pdf"] as const;
 export const MAX_ATTACHMENT_SIZE_BYTES = 5 * 1024 * 1024;

@@ -1,17 +1,17 @@
 "use client";
 
-import { useDeleteProject } from "@/hooks/use-projects";
-import type { Project } from "@/types/project.types";
 import {
   AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useDeleteProject } from "@/hooks/use-projects";
+import type { Project } from "@/types/project.types";
 
 interface DeleteProjectDialogProps {
   project: Project | null;
@@ -43,18 +43,13 @@ export function DeleteProjectDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Delete project</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete &ldquo;{project?.name}&rdquo;? This
-            action cannot be undone.
+            Are you sure you want to delete &ldquo;{project?.name}&rdquo;? This action cannot be
+            undone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={deleteProject.isPending}>
-            Cancel
-          </AlertDialogCancel>
-          <AlertDialogAction
-            onClick={handleConfirm}
-            disabled={deleteProject.isPending}
-          >
+          <AlertDialogCancel disabled={deleteProject.isPending}>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleConfirm} disabled={deleteProject.isPending}>
             {deleteProject.isPending ? "Deleting…" : "Delete"}
           </AlertDialogAction>
         </AlertDialogFooter>

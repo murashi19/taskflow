@@ -1,8 +1,8 @@
 "use client";
 
-import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/types/project.types";
+import { Pencil, Trash2 } from "lucide-react";
 
 interface ProjectRowActionsProps {
   project: Project;
@@ -10,11 +10,7 @@ interface ProjectRowActionsProps {
   onDelete: (project: Project) => void;
 }
 
-export function ProjectRowActions({
-  project,
-  onEdit,
-  onDelete,
-}: ProjectRowActionsProps) {
+export function ProjectRowActions({ project, onEdit, onDelete }: ProjectRowActionsProps) {
   return (
     <div className="flex justify-end gap-1">
       <Button

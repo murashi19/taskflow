@@ -1,14 +1,14 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
-import { loginFormSchema, type LoginFormValues } from "@/schemas/auth.schema";
-import { useLogin } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
+import { FormError } from "@/components/ui/form-error";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormError } from "@/components/ui/form-error";
+import { useLogin } from "@/hooks/use-auth";
+import { type LoginFormValues, loginFormSchema } from "@/schemas/auth.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
 
 export function LoginForm() {
   const login = useLogin();

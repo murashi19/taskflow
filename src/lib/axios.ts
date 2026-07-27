@@ -1,11 +1,10 @@
-import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
-import { useAuthStore } from "@/store/auth.store";
 import { ENDPOINTS } from "@/constants/endpoints";
+import { useAuthStore } from "@/store/auth.store";
 import type { ApiSuccess } from "@/types/api.types";
 import type { RefreshResponseData } from "@/types/auth.types";
+import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
 
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -63,8 +62,7 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    const { refreshToken, clearSession, setAccessToken } =
-      useAuthStore.getState();
+    const { refreshToken, clearSession, setAccessToken } = useAuthStore.getState();
 
     if (!refreshToken) {
       clearSession();
@@ -89,9 +87,10 @@ api.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      const { data } = await refreshClient.post<
-        ApiSuccess<RefreshResponseData>
-      >(ENDPOINTS.auth.refresh, { refreshToken });
+      const { data } = await refreshClient.post<ApiSuccess<RefreshResponseData>>(
+        ENDPOINTS.auth.refresh,
+        { refreshToken },
+      );
 
       const newAccessToken = data.data.accessToken;
       setAccessToken(newAccessToken);

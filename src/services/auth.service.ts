@@ -1,5 +1,5 @@
-import { api } from "@/lib/axios";
 import { ENDPOINTS } from "@/constants/endpoints";
+import { api } from "@/lib/axios";
 import type { ApiSuccess } from "@/types/api.types";
 import type {
   AuthUser,
@@ -9,18 +9,12 @@ import type {
 } from "@/types/auth.types";
 
 export async function registerUser(payload: RegisterPayload) {
-  const { data } = await api.post<ApiSuccess<AuthUser>>(
-    ENDPOINTS.auth.register,
-    payload,
-  );
+  const { data } = await api.post<ApiSuccess<AuthUser>>(ENDPOINTS.auth.register, payload);
   return data.data;
 }
 
 export async function loginUser(payload: LoginPayload) {
-  const { data } = await api.post<ApiSuccess<LoginResponseData>>(
-    ENDPOINTS.auth.login,
-    payload,
-  );
+  const { data } = await api.post<ApiSuccess<LoginResponseData>>(ENDPOINTS.auth.login, payload);
   return data.data;
 }
 

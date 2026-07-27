@@ -1,5 +1,5 @@
-import { AxiosError } from "axios";
 import type { ApiError } from "@/types/api.types";
+import { AxiosError } from "axios";
 
 const GENERIC_MESSAGE = "Something went wrong. Please try again.";
 
@@ -19,11 +19,7 @@ export function getErrorMessage(error: unknown): string {
     // Only status codes explicitly handled by the app are trusted to
     // surface the backend's own message; anything else falls back to a
     // generic message so raw backend errors are never exposed.
-    if (
-      status &&
-      [400, 401, 403, 404, 409, 422].includes(status) &&
-      data?.message
-    ) {
+    if (status && [400, 401, 403, 404, 409, 422].includes(status) && data?.message) {
       return data.message;
     }
 

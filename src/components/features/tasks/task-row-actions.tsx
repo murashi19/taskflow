@@ -1,8 +1,8 @@
 "use client";
 
-import { History, Link2, Paperclip, Pencil, Trash2, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Task } from "@/types/task.types";
+import { History, Link2, Paperclip, Pencil, Trash2, UserPlus } from "lucide-react";
 
 interface TaskRowActionsProps {
   task: Task;
@@ -57,7 +57,12 @@ export function TaskRowActions({
       >
         <UserPlus className="h-4 w-4" />
       </Button>
-      <Button variant="ghost" size="sm" onClick={() => onEdit(task)} aria-label={`Edit ${task.title}`}>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => onEdit(task)}
+        aria-label={`Edit ${task.title}`}
+      >
         <Pencil className="h-4 w-4" />
       </Button>
       <Button

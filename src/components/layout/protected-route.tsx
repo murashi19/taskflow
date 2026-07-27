@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/store/auth.store";
 import { useCurrentUser } from "@/hooks/use-auth";
+import { useAuthStore } from "@/store/auth.store";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const router = useRouter();

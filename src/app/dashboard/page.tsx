@@ -1,16 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAuthStore } from "@/store/auth.store";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/store/auth.store";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { useEffect } from "react";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -39,14 +33,10 @@ export default function DashboardPage() {
         <Card className="transition-colors hover:bg-slate-50">
           <CardHeader>
             <CardTitle>Projects</CardTitle>
-            <CardDescription>
-              View, create, and manage your projects.
-            </CardDescription>
+            <CardDescription>View, create, and manage your projects.</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm font-medium text-blue-600">
-              Go to Projects →
-            </p>
+            <p className="text-sm font-medium text-blue-600">Go to Projects →</p>
           </CardContent>
         </Card>
       </Link>

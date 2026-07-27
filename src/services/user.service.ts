@@ -1,5 +1,5 @@
-import { api } from "@/lib/axios";
 import { ENDPOINTS } from "@/constants/endpoints";
+import { api } from "@/lib/axios";
 import type { ApiSuccess } from "@/types/api.types";
 import type { User, UserListParams } from "@/types/user.types";
 

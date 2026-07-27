@@ -1,23 +1,23 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { useProjects } from "@/hooks/use-projects";
-import { useDebounce } from "@/hooks/use-debounce";
-import { useAuthStore } from "@/store/auth.store";
-import { canManageProjects } from "@/lib/permissions";
-import { formatDate } from "@/lib/format";
-import { getErrorMessage } from "@/lib/error";
-import type { Project } from "@/types/project.types";
+import { CreateProjectDialog } from "@/components/features/projects/create-project-dialog";
+import { DeleteProjectDialog } from "@/components/features/projects/delete-project-dialog";
+import { EditProjectDialog } from "@/components/features/projects/edit-project-dialog";
+import { ProjectRowActions } from "@/components/features/projects/project-row-actions";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { CreateProjectDialog } from "@/components/features/projects/create-project-dialog";
-import { EditProjectDialog } from "@/components/features/projects/edit-project-dialog";
-import { DeleteProjectDialog } from "@/components/features/projects/delete-project-dialog";
-import { SearchInput } from "@/components/ui/search-input";
 import { PaginationControls } from "@/components/ui/pagination-controls";
-import { ProjectRowActions } from "@/components/features/projects/project-row-actions";
+import { SearchInput } from "@/components/ui/search-input";
 import { TableSkeleton } from "@/components/ui/table-skeleton";
+import { useDebounce } from "@/hooks/use-debounce";
+import { useProjects } from "@/hooks/use-projects";
+import { getErrorMessage } from "@/lib/error";
+import { formatDate } from "@/lib/format";
+import { canManageProjects } from "@/lib/permissions";
+import { useAuthStore } from "@/store/auth.store";
+import type { Project } from "@/types/project.types";
+import Link from "next/link";
+import { useState } from "react";
 
 const ROWS_PER_PAGE = 10;
 
@@ -58,9 +58,7 @@ export function ProjectList() {
         {isLoading ? (
           <TableSkeleton />
         ) : isError ? (
-          <div className="p-6 text-center text-sm text-red-600">
-            {getErrorMessage(error)}
-          </div>
+          <div className="p-6 text-center text-sm text-red-600">{getErrorMessage(error)}</div>
         ) : !data || data.length === 0 ? (
           <EmptyState
             title={search ? "No projects match your search" : "No projects yet"}
@@ -96,9 +94,7 @@ export function ProjectList() {
                   <td className="max-w-xs truncate px-6 py-4 text-slate-500">
                     {project.description || "—"}
                   </td>
-                  <td className="px-6 py-4 text-slate-500">
-                    {formatDate(project.createdAt)}
-                  </td>
+                  <td className="px-6 py-4 text-slate-500">{formatDate(project.createdAt)}</td>
                   {canManage && (
                     <td className="px-6 py-4">
                       <ProjectRowActions
@@ -116,11 +112,7 @@ export function ProjectList() {
       </Card>
 
       {!isLoading && !isError && data && data.length > 0 && (
-        <PaginationControls
-          page={page}
-          hasNextPage={hasNextPage}
-          onPageChange={setPage}
-        />
+        <PaginationControls page={page} hasNextPage={hasNextPage} onPageChange={setPage} />
       )}
 
       {canManage && (

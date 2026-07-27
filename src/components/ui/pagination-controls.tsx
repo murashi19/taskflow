@@ -1,7 +1,7 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface PaginationControlsProps {
   page: number;
@@ -9,11 +9,7 @@ interface PaginationControlsProps {
   onPageChange: (page: number) => void;
 }
 
-export function PaginationControls({
-  page,
-  hasNextPage,
-  onPageChange,
-}: PaginationControlsProps) {
+export function PaginationControls({ page, hasNextPage, onPageChange }: PaginationControlsProps) {
   return (
     <div className="flex items-center justify-between">
       <span className="text-sm text-slate-500">Page {page}</span>

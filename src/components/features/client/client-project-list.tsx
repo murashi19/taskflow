@@ -1,10 +1,10 @@
 "use client";
 
+import { ClientProjectCard } from "@/components/features/client/client-project-card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useClientProjects } from "@/hooks/use-client-projects";
 import { getErrorMessage } from "@/lib/error";
-import { Skeleton } from "@/components/ui/skeleton";
-import { EmptyState } from "@/components/ui/empty-state";
-import { ClientProjectCard } from "@/components/features/client/client-project-card";
 
 export function ClientProjectList() {
   const { data: projects, isLoading, isError, error } = useClientProjects();
