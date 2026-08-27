@@ -45,7 +45,7 @@ export function ProjectList() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+      <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
         <SearchInput
           value={searchInput}
           onChange={handleSearchChange}
@@ -71,43 +71,74 @@ export function ProjectList() {
             }
           />
         ) : (
-          <table className="w-full text-left text-sm">
-            <thead className="border-b border-slate-200 bg-slate-50 text-slate-500">
-              <tr>
-                <th className="px-6 py-3 font-medium">Name</th>
-                <th className="px-6 py-3 font-medium">Description</th>
-                <th className="px-6 py-3 font-medium">Created</th>
-                {canManage && <th className="px-6 py-3 font-medium" />}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-200">
+          <>
+            <div className="divide-y divide-slate-200 md:hidden">
               {data.map((project) => (
-                <tr key={project.id} className="hover:bg-slate-50">
-                  <td className="px-6 py-4 font-medium text-slate-900">
+                <div key={project.id} className="flex items-start justify-between gap-3 p-4">
+                  <div className="min-w-0">
                     <Link
                       href={`/dashboard/projects/${project.id}`}
-                      className="hover:text-blue-600 hover:underline"
+                      className="font-semibold text-slate-900 hover:text-blue-600"
                     >
                       {project.name}
                     </Link>
-                  </td>
-                  <td className="max-w-xs truncate px-6 py-4 text-slate-500">
-                    {project.description || "—"}
-                  </td>
-                  <td className="px-6 py-4 text-slate-500">{formatDate(project.createdAt)}</td>
+                    <p className="mt-1 line-clamp-2 text-sm text-slate-500">
+                      {project.description || "No description"}
+                    </p>
+                    <p className="mt-2 text-xs text-slate-400">
+                      Created {formatDate(project.createdAt)}
+                    </p>
+                  </div>
                   {canManage && (
-                    <td className="px-6 py-4">
-                      <ProjectRowActions
-                        project={project}
-                        onEdit={setEditTarget}
-                        onDelete={setDeleteTarget}
-                      />
-                    </td>
+                    <ProjectRowActions
+                      project={project}
+                      onEdit={setEditTarget}
+                      onDelete={setDeleteTarget}
+                    />
                   )}
-                </tr>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </div>
+            <div className="hidden overflow-x-auto md:block">
+              <table className="w-full min-w-[640px] text-left text-sm">
+                <thead className="border-b border-slate-200 bg-slate-50 text-slate-500">
+                  <tr>
+                    <th className="px-6 py-3 font-medium">Name</th>
+                    <th className="px-6 py-3 font-medium">Description</th>
+                    <th className="px-6 py-3 font-medium">Created</th>
+                    {canManage && <th className="px-6 py-3 font-medium" />}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200">
+                  {data.map((project) => (
+                    <tr key={project.id} className="hover:bg-slate-50">
+                      <td className="px-6 py-4 font-medium text-slate-900">
+                        <Link
+                          href={`/dashboard/projects/${project.id}`}
+                          className="hover:text-blue-600 hover:underline"
+                        >
+                          {project.name}
+                        </Link>
+                      </td>
+                      <td className="max-w-xs truncate px-6 py-4 text-slate-500">
+                        {project.description || "—"}
+                      </td>
+                      <td className="px-6 py-4 text-slate-500">{formatDate(project.createdAt)}</td>
+                      {canManage && (
+                        <td className="px-6 py-4">
+                          <ProjectRowActions
+                            project={project}
+                            onEdit={setEditTarget}
+                            onDelete={setDeleteTarget}
+                          />
+                        </td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </Card>
 

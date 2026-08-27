@@ -11,9 +11,9 @@ interface PaginationControlsProps {
 
 export function PaginationControls({ page, hasNextPage, onPageChange }: PaginationControlsProps) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <span className="text-sm text-slate-500">Page {page}</span>
-      <div className="flex gap-2">
+      <div className="flex gap-2 sm:justify-end">
         <Button
           variant="outline"
           size="sm"
@@ -21,7 +21,8 @@ export function PaginationControls({ page, hasNextPage, onPageChange }: Paginati
           disabled={page <= 1}
         >
           <ChevronLeft className="h-4 w-4" />
-          Previous
+          <span className="hidden sm:inline">Previous</span>
+          <span className="sm:hidden">Prev</span>
         </Button>
         <Button
           variant="outline"

@@ -40,7 +40,10 @@ export function AssignTaskDialog({ task, onOpenChange }: AssignTaskDialogProps) 
 
   const handleSubmit = () => {
     if (!assigneeId) return;
-    assignTask.mutate({ assigneeId }, { onSuccess: () => handleOpenChange(false) });
+    assignTask.mutate(
+      { assigneeId, version: task?.version ?? 1 },
+      { onSuccess: () => handleOpenChange(false) },
+    );
   };
 
   return (

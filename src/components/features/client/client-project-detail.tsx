@@ -62,30 +62,32 @@ export function ClientProjectDetail({ projectId }: { projectId: string }) {
               />
             ) : (
               <Card className="overflow-hidden">
-                <table className="w-full text-left text-sm">
-                  <thead className="border-b border-slate-200 bg-slate-50 text-slate-500">
-                    <tr>
-                      <th className="px-6 py-3 font-medium">Title</th>
-                      <th className="px-6 py-3 font-medium">Priority</th>
-                      <th className="px-6 py-3 font-medium">Status</th>
-                      <th className="px-6 py-3 font-medium">Updated</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-200">
-                    {project.tasks.map((task) => (
-                      <tr key={task.id}>
-                        <td className="px-6 py-4 font-medium text-slate-900">{task.title}</td>
-                        <td className="px-6 py-4">
-                          <PriorityBadge priority={task.priority} />
-                        </td>
-                        <td className="px-6 py-4">
-                          <StatusBadge status={task.status} />
-                        </td>
-                        <td className="px-6 py-4 text-slate-500">{formatDate(task.updatedAt)}</td>
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[580px] text-left text-sm">
+                    <thead className="border-b border-slate-200 bg-slate-50 text-slate-500">
+                      <tr>
+                        <th className="px-6 py-3 font-medium">Title</th>
+                        <th className="px-6 py-3 font-medium">Priority</th>
+                        <th className="px-6 py-3 font-medium">Status</th>
+                        <th className="px-6 py-3 font-medium">Updated</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200">
+                      {project.tasks.map((task) => (
+                        <tr key={task.id}>
+                          <td className="px-6 py-4 font-medium text-slate-900">{task.title}</td>
+                          <td className="px-6 py-4">
+                            <PriorityBadge priority={task.priority} />
+                          </td>
+                          <td className="px-6 py-4">
+                            <StatusBadge status={task.status} />
+                          </td>
+                          <td className="px-6 py-4 text-slate-500">{formatDate(task.updatedAt)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </Card>
             )}
           </div>

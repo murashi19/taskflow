@@ -1,7 +1,16 @@
 export interface ApiSuccess<T> {
   success: true;
-  message: string;
+  message?: string;
   data: T;
+  meta?: { pagination?: PaginationMeta };
+}
+
+export interface PaginationMeta {
+  page: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
+  returned: number;
 }
 
 export interface ApiValidationIssue {

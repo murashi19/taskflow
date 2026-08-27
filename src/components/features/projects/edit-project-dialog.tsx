@@ -22,7 +22,11 @@ export function EditProjectDialog({ project, onOpenChange }: EditProjectDialogPr
 
   const handleSubmit = (values: ProjectFormValues) => {
     updateProject.mutate(
-      { name: values.name, description: values.description || undefined },
+      {
+        name: values.name,
+        description: values.description || undefined,
+        version: project?.version ?? 1,
+      },
       { onSuccess: () => onOpenChange(false) },
     );
   };

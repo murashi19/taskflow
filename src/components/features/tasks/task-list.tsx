@@ -106,33 +106,17 @@ export function TaskList({ projectId }: { projectId: string }) {
             }
           />
         ) : (
-          <table className="w-full text-left text-sm">
-            <thead className="border-b border-slate-200 bg-slate-50 text-slate-500">
-              <tr>
-                <th className="px-6 py-3 font-medium">Title</th>
-                <th className="px-6 py-3 font-medium">Priority</th>
-                <th className="px-6 py-3 font-medium">Status</th>
-                <th className="px-6 py-3 font-medium" />
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-200">
+          <>
+            <div className="divide-y divide-slate-200 md:hidden">
               {data.map((task) => (
-                <tr key={task.id} className="hover:bg-slate-50">
-                  <td className="px-6 py-4 font-medium text-slate-900">
-                    {task.title}
-                    {task.clientVisible && (
-                      <span className="ml-2 text-xs font-normal text-slate-400">
-                        (client visible)
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-6 py-4">
-                    <PriorityBadge priority={task.priority} />
-                  </td>
-                  <td className="px-6 py-4">
-                    <TaskStatusSelect task={task} />
-                  </td>
-                  <td className="px-6 py-4">
+                <div key={task.id} className="flex flex-col gap-3 p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="font-semibold text-slate-900">{task.title}</p>
+                      {task.clientVisible && (
+                        <p className="mt-1 text-xs text-slate-400">Visible to client</p>
+                      )}
+                    </div>
                     <TaskRowActions
                       task={task}
                       onEdit={setEditTarget}
@@ -142,11 +126,58 @@ export function TaskList({ projectId }: { projectId: string }) {
                       onAuditLog={setAuditLogTarget}
                       onDelete={setDeleteTarget}
                     />
-                  </td>
-                </tr>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <PriorityBadge priority={task.priority} />
+                    <TaskStatusSelect task={task} />
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </div>
+            <div className="hidden overflow-x-auto md:block">
+              <table className="w-full min-w-[680px] text-left text-sm">
+                <thead className="border-b border-slate-200 bg-slate-50 text-slate-500">
+                  <tr>
+                    <th className="px-6 py-3 font-medium">Title</th>
+                    <th className="px-6 py-3 font-medium">Priority</th>
+                    <th className="px-6 py-3 font-medium">Status</th>
+                    <th className="px-6 py-3 font-medium" />
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200">
+                  {data.map((task) => (
+                    <tr key={task.id} className="hover:bg-slate-50">
+                      <td className="px-6 py-4 font-medium text-slate-900">
+                        {task.title}
+                        {task.clientVisible && (
+                          <span className="ml-2 text-xs font-normal text-slate-400">
+                            (client visible)
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-6 py-4">
+                        <PriorityBadge priority={task.priority} />
+                      </td>
+                      <td className="px-6 py-4">
+                        <TaskStatusSelect task={task} />
+                      </td>
+                      <td className="px-6 py-4">
+                        <TaskRowActions
+                          task={task}
+                          onEdit={setEditTarget}
+                          onAssign={setAssignTarget}
+                          onDependencies={setDependenciesTarget}
+                          onAttachments={setAttachmentsTarget}
+                          onAuditLog={setAuditLogTarget}
+                          onDelete={setDeleteTarget}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </Card>
 

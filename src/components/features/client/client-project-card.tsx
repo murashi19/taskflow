@@ -6,7 +6,7 @@ import Link from "next/link";
 export function ClientProjectCard({ project }: { project: ClientProject }) {
   return (
     <Link href={`/dashboard/client/${project.id}`}>
-      <Card className="transition-colors hover:bg-slate-50">
+      <Card className="h-full transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md">
         <CardHeader>
           <CardTitle>{project.name}</CardTitle>
           {project.description && <CardDescription>{project.description}</CardDescription>}

@@ -24,9 +24,11 @@ export function useProjects(params: ProjectListParams) {
 
   // Heuristic only: the backend doesn't return a total count, so "next
   // page exists" is inferred from whether this page came back full.
-  const hasNextPage = (query.data?.length ?? 0) === params.rows;
+  const hasNextPage = query.data?.pagination
+    ? query.data.pagination.page < query.data.pagination.totalPages
+    : (query.data?.items.length ?? 0) === params.rows;
 
-  return { ...query, hasNextPage };
+  return { ...query, data: query.data?.items, pagination: query.data?.pagination, hasNextPage };
 }
 
 export function useProject(id: string) {

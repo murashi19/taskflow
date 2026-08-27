@@ -16,6 +16,8 @@ export const ENDPOINTS = {
     create: "/projects",
     byId: (id: string) => `/projects/${id}`,
     members: (id: string) => `/projects/${id}/members`,
+    availableTeam: (id: string) => `/projects/${id}/available-team`,
+    team: (id: string) => `/projects/${id}/team`,
     removeMember: (id: string, userId: string) => `/projects/${id}/members/${userId}`,
   },
   tasks: {

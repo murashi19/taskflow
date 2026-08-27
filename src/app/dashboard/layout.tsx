@@ -6,7 +6,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <ProtectedRoute>
       <div className="min-h-screen bg-slate-50">
         <DashboardTopbar />
-        <main className="mx-auto max-w-6xl px-6 py-8">{children}</main>
+        <main className="mx-auto w-full max-w-7xl px-4 py-5 sm:px-6 sm:py-8 lg:px-8">
+          {children}
+        </main>
       </div>
     </ProtectedRoute>
   );

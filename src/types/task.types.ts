@@ -41,10 +41,12 @@ export interface UpdateTaskPayload {
   description?: string;
   priority?: TaskPriority;
   clientVisible?: boolean;
+  version: number;
 }
 
 export interface AssignTaskPayload {
   assigneeId: string;
+  version: number;
 }
 
 export interface ChangeTaskStatusPayload {

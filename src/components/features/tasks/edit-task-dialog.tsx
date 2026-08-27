@@ -27,6 +27,7 @@ export function EditTaskDialog({ task, onOpenChange }: EditTaskDialogProps) {
         description: values.description || undefined,
         priority: values.priority,
         clientVisible: values.clientVisible,
+        version: task?.version ?? 1,
       },
       { onSuccess: () => onOpenChange(false) },
     );

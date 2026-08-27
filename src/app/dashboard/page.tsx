@@ -25,18 +25,23 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-xl font-semibold text-slate-900">Dashboard</h1>
-        <p className="text-sm text-slate-500">You&apos;re logged in.</p>
+        <p className="text-sm font-semibold uppercase tracking-wider text-blue-600">Overview</p>
+        <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
+          Dashboard
+        </h1>
+        <p className="mt-1 text-sm text-slate-500">A quick view of your workspace.</p>
       </div>
 
       <Link href="/dashboard/projects">
-        <Card className="transition-colors hover:bg-slate-50">
+        <Card className="group transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md">
           <CardHeader>
             <CardTitle>Projects</CardTitle>
             <CardDescription>View, create, and manage your projects.</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm font-medium text-blue-600">Go to Projects →</p>
+            <p className="text-sm font-semibold text-blue-600 group-hover:text-blue-700">
+              Go to Projects <span aria-hidden="true">→</span>
+            </p>
           </CardContent>
         </Card>
       </Link>

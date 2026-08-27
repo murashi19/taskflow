@@ -28,9 +28,11 @@ export function useTasks(params: TaskListParams) {
   });
 
   // Same heuristic as Projects — the backend doesn't return a total count.
-  const hasNextPage = (query.data?.length ?? 0) === params.rows;
+  const hasNextPage = query.data?.pagination
+    ? query.data.pagination.page < query.data.pagination.totalPages
+    : (query.data?.items.length ?? 0) === params.rows;
 
-  return { ...query, hasNextPage };
+  return { ...query, data: query.data?.items, pagination: query.data?.pagination, hasNextPage };
 }
 
 export function useTask(id: string) {

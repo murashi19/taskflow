@@ -3,11 +3,13 @@ import { api } from "@/lib/axios";
 import type { ApiSuccess } from "@/types/api.types";
 import type { ProjectMember } from "@/types/project-member.types";
 import type {
+  AddProjectTeamMembersPayload,
   CreateProjectPayload,
   Project,
   ProjectListParams,
   UpdateProjectPayload,
 } from "@/types/project.types";
+import type { User } from "@/types/user.types";
 
 export async function getProjects(params: ProjectListParams) {
   const query: Record<string, string | number> = {
@@ -27,7 +29,7 @@ export async function getProjects(params: ProjectListParams) {
     params: query,
   });
 
-  return data.data;
+  return { items: data.data, pagination: data.meta?.pagination };
 }
 
 export async function getProjectById(id: string) {
@@ -62,6 +64,22 @@ export async function addProjectMember(projectId: string, userId: string) {
     {
       userId,
     },
+  );
+  return data.data;
+}
+
+export async function getAvailableProjectTeam(projectId: string) {
+  const { data } = await api.get<ApiSuccess<User[]>>(ENDPOINTS.projects.availableTeam(projectId));
+  return data.data;
+}
+
+export async function addProjectTeamMembers(
+  projectId: string,
+  payload: AddProjectTeamMembersPayload,
+) {
+  const { data } = await api.post<ApiSuccess<ProjectMember[]>>(
+    ENDPOINTS.projects.team(projectId),
+    payload,
   );
   return data.data;
 }

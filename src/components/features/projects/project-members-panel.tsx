@@ -1,6 +1,7 @@
 "use client";
 
 import { AddMemberDialog } from "@/components/features/projects/add-member-dialog";
+import { AddTeamDialog } from "@/components/features/projects/add-team-dialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -20,7 +21,12 @@ export function ProjectMembersPanel({ projectId }: { projectId: string }) {
     <Card>
       <CardHeader className="flex-row items-center justify-between">
         <CardTitle>Members</CardTitle>
-        {canManage && <AddMemberDialog projectId={projectId} />}
+        {canManage && (
+          <div className="flex gap-2">
+            <AddTeamDialog projectId={projectId} />
+            <AddMemberDialog projectId={projectId} />
+          </div>
+        )}
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
         {isLoading ? (

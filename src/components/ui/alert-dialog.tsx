@@ -18,7 +18,7 @@ function AlertDialogContent({
       <AlertDialogPrimitive.Overlay className="fixed inset-0 z-50 bg-slate-900/40" />
       <AlertDialogPrimitive.Content
         className={cn(
-          "fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-lg border border-slate-200 bg-white p-6 shadow-lg",
+          "fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-xl border border-slate-200 bg-white p-5 shadow-xl sm:p-6",
           className,
         )}
         {...props}

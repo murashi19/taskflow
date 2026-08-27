@@ -32,7 +32,7 @@ export async function getTasks(params: TaskListParams) {
   }
 
   const { data } = await api.get<ApiSuccess<Task[]>>(ENDPOINTS.tasks.list, { params: query });
-  return data.data;
+  return { items: data.data, pagination: data.meta?.pagination };
 }
 
 export async function getTaskById(id: string) {
